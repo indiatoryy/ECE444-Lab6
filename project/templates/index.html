@@ -12,6 +12,8 @@
     <div class="container">
       <br /><br />
       <h1>Flaskr</h1>
+      <br />
+      <a class="btn btn-info" role="button" href="{{ url_for('search') }}">Search</a>
       <br /><br />
 
       {% if not session.logged_in %}
