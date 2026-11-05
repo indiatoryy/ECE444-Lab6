@@ -1,5 +1,4 @@
 import os
-import sqlite3
 from functools import wraps
 from pathlib import Path
 
@@ -7,7 +6,6 @@ from flask import (
     Flask,
     abort,
     flash,
-    g,
     jsonify,
     redirect,
     render_template,
