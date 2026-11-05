@@ -1,3 +1,4 @@
+import json
 import os
 
 import pytest
@@ -73,3 +74,10 @@ def test_messages(client):
     assert b"No entries here so far" not in rv.data
     assert b"<Hello>" in rv.data
     assert b"<strong>HTML</strong> allowed here" in rv.data
+
+
+def test_delete_message(client):
+    """Ensure the messages are being deleted"""
+    rv = client.get("/delete/1")
+    data = json.loads(rv.data)
+    assert data["status"] == 1

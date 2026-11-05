@@ -1,6 +1,17 @@
 import sqlite3
 
-from flask import Flask, abort, flash, g, redirect, render_template, request, session, url_for
+from flask import (
+    Flask,
+    abort,
+    flash,
+    g,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 
 # configuration
 DATABASE = "flaskr.db"
@@ -84,6 +95,20 @@ def login():
             flash("You were logged in")
             return redirect(url_for("index"))
     return render_template("login.html", error=error)
+
+
+@app.route("/delete/<post_id>", methods=["GET"])
+def delete_entry(post_id):
+    """Delete post from database"""
+    result = {"status": 0, "message": "Error"}
+    try:
+        db = get_db()
+        db.execute("delete from entries where id=" + post_id)
+        db.commit()
+        result = {"status": 1, "message": "Post Deleted"}
+    except Exception as e:
+        result = {"status": 0, "message": repr(e)}
+    return jsonify(result)
 
 
 @app.route("/logout")
